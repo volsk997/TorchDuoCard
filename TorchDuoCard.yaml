@@ -37,29 +37,8 @@ cards:
               style: |
                 ha-card:hover {
                   --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                  scale: 1.1;}
+                   }
           - type: spacer
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: light.yeelight_colorb_0xed432a3
-                state: "on"
-            chip:
-              type: template
-              tap_action:
-                action: more-info
-              hold_action:
-                action: none
-              double_tap_action:
-                action: none
-              icon: mdi:circle
-              icon_color: "{{state_attr(config.entity, 'rgb_color')}}"
-              entity: light.yeelight_colorb_0xed432a3
-              card_mod:
-                style: |
-                  ha-card:hover {
-                    --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                    scale: 1.1;}
           - type: conditional
             conditions:
               - condition: state
@@ -80,7 +59,28 @@ cards:
                 style: |
                   ha-card:hover {
                     --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                    scale: 1.1;}
+                     }
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: light.yeelight_colorb_0xed432a3
+                state: "on"
+            chip:
+              type: template
+              tap_action:
+                action: more-info
+              hold_action:
+                action: none
+              double_tap_action:
+                action: none
+              icon: mdi:circle
+              icon_color: "{{state_attr(config.entity, 'rgb_color')}}"
+              entity: light.yeelight_colorb_0xed432a3
+              card_mod:
+                style: |
+                  ha-card:hover {
+                    --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                     }
           - type: template
             icon: mdi:information
             icon_color: disabled
@@ -95,37 +95,13 @@ cards:
               style: |
                 ha-card:hover {
                   --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                  scale: 1.1;}
+                   }
         alignment: start
         card_mod:
           style: |
-            ha-card {
-              opacity:1000%;
-              --chip-height: 50px;
-              --chip-background: none;
-              --chip-border-radius: 50px;
-              --primary-text-color: rgba(var(--rgb-disabled)); ;
-
-              background-color: transparent !important;
-              }
-            ha-card:hover {
-               opacity: 100%; }
-            ha-card > .chip-container {
-              flex-wrap: nowrap;
-              overflow-x: scroll;
-              overflow-y: hidden;
-              --chip-spacing: 0px;
-              --chip-height: 45px;
-              --chip-font-weight: bolder; 
-
-              padding-bottom: 40px;
-              padding-right: 10px;
-              padding-top: 10px;
-              margin-bottom: 20px;
-            }
-            ha-card > .chip-container > * {
-              flex-shrink: 0;
-            }
+            {% set top = 7 %}
+            {% set chip_height = 48 %}
+            {% include 'title_chips_scrollable.jinja' %}
     card_mod:
       style: |
         ha-card {
@@ -200,37 +176,27 @@ cards:
               action: none
             fill_container: true
             card_mod:
-              style: |
-                ha-card:before {
-                  transform: translate3d(0,0,0);
-                  -webkit-transform: translate3d(0,0,0);
-                  content: "";
-                        {%if is_state('light.yeelight_colorb_0x1b11995d','on') and
-                  is_state('light.yeelight_colorb_0xed432a3','on') %}
-                    {%if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
-                           background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 100%);
-                    {% else %} 
-                           background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 100%);
-                    {% endif%}
-                  {%elif is_state('light.yeelight_colorb_0x1b11995d','on') and
-                  is_state('light.yeelight_colorb_0xed432a3','off') %}
-                     background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba(40,40,40,0.5) 90%);
-                  {%elif is_state('light.yeelight_colorb_0x1b11995d','off') and
-                  is_state('light.yeelight_colorb_0xed432a3','on') %}
-                     background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 150%);
-                  {% else %}
-                     background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);
-                  {% endif %}
-                  
-                  background-size: cover;
-                  margin: 0px 0px -20px 0px;
-                  aspect-ratio: 1 / 1; 
-                  border-radius: 30px;
-                  }
-                ha-card {
-                  border-radius: 30px; 
-                  border: 2px outset rgba(0,0,0,0);}
-                  border-width: 0px;
+              style: >
+                {% set domain = 'light' %}
+
+                {% if is_state('light.yeelight_colorb_0x1b11995d','on') and
+                is_state('light.yeelight_colorb_0xed432a3','on') %}
+                    {% if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
+                        {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.5) 100%);" %}
+                    {% else %}
+                        {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 100%);" %}
+                    {% endif %}
+                {% elif is_state('light.yeelight_colorb_0x1b11995d','on') and
+                is_state('light.yeelight_colorb_0xed432a3','off') %}
+                    {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(40,40,40,0.5) 90%);" %}
+                {% elif is_state('light.yeelight_colorb_0x1b11995d','off') and
+                is_state('light.yeelight_colorb_0xed432a3','on') %}
+                    {% set file = "background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 150%);" %}
+                {% else %}
+                    {% set file = "background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);" %}
+                {% endif %}
+
+                {% include 'cover_card_cover.jinja' %}
           - type: custom:stack-in-card
             cards:
               - type: custom:stack-in-card
@@ -240,7 +206,6 @@ cards:
 
                     secondary: ""
                     icon: ""
-                    entity: media_player.yandex_station_m00en2100jayck
                     picture: ""
                     badge_icon: ""
                     badge_color: ""
@@ -252,39 +217,36 @@ cards:
                       action: none
                     fill_container: true
                     card_mod:
-                      style: |
-                        ha-card:before {
-                          transform: translate3d(0,0,0);
-                          -webkit-transform: translate3d(0,0,0);
-                          
-                          content: "";
-                                {%if is_state('light.yeelight_colorb_0x1b11995d','on') and
-                          is_state('light.yeelight_colorb_0xed432a3','on') %}
-                            {%if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
-                                   background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 100%);
-                            {% else %} 
-                                   background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 100%);
-                            {% endif%}
-                          {%elif is_state('light.yeelight_colorb_0x1b11995d','on') and
-                          is_state('light.yeelight_colorb_0xed432a3','off') %}
-                             background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba(40,40,40,0.5) 90%);
-                          {%elif is_state('light.yeelight_colorb_0x1b11995d','off') and
-                          is_state('light.yeelight_colorb_0xed432a3','on') %}
-                             background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 150%);
-                          {% else %}
-                             background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);
-                          {% endif %}
-                          filter:  opacity(50%)  !important;
-                          background-size: cover;
-                          margin: 0px 0px -20px 0px;
-                          filter: blur(0px) saturate(100%) brightness(50%);
-                          aspect-ratio: 1 / 1; 
-                          border-radius: 30px;
-                          }
-                        ha-card {
-                          border-radius: 30px; 
-                          border: 2px outset rgba(0,0,0,0);}
-                          border-width: 0px;
+                      style: >
+                        {% set domain = 'light' %}
+
+                        {% if is_state('light.yeelight_colorb_0x1b11995d','on')
+                        and
+
+                        is_state('light.yeelight_colorb_0xed432a3','on') %}
+                            {% if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
+                                {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.5) 100%);" %}
+                            {% else %}
+                                {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 100%);" %}
+                            {% endif %}
+                        {% elif
+                        is_state('light.yeelight_colorb_0x1b11995d','on') and
+
+                        is_state('light.yeelight_colorb_0xed432a3','off') %}
+                            {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(40,40,40,0.5) 90%);" %}
+                        {% elif
+                        is_state('light.yeelight_colorb_0x1b11995d','off') and
+
+                        is_state('light.yeelight_colorb_0xed432a3','on') %}
+                            {% set file = "background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 150%);" %}
+                        {% else %}
+                            {% set file = "background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);" %}
+                        {% endif %}
+
+                        {% set opacity_variable = 'filter:  opacity(50%) 
+                        !important;'%}
+
+                        {% include 'cover_card_cover.jinja' %}
                 card_mod:
                   style: |
                     ha-card {
@@ -311,83 +273,27 @@ cards:
                       {% endif %}
                     card_mod:
                       style: |
-                        ha-card {
-                          margin: -55px 0px 0px 0px;
-                          --chip-height: 220px;  /* Значение для ПК */
-                          weight: 0px; 
-                          --chip-background: transparent;
-                          --chip-padding: -20px;
-                          background: 
-                          {% if is_state(config.entity, 'on') %} rgba(255,255,255,1) !important;;
-                          {% else %}rgba(var(--rgb-card-background-color), 0.5) !important;
-                          {% endif %}
-                          backdrop-filter: blur(10px) !important;
-                          -webkit-backdrop-filter: blur(10px) !important;
-                          box-shadow: 0px 20px 40px 5px rgba(0, 0, 0, 0.7) !important;
-                          border: 1px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
-                          display: flex !important;
-                          flex-direction: column !important;
-                          justify-content: center !important;
-                          align-items: center !important;
-                          transition: all 0.3s ease !important;
-                        }
-                        ha-card:hover {
-                          scale: 1.1;
-                        }
-
-                        /* Для мобильных (ширина экрана ≤ 600px) */
-                        @media (max-width: 1150px) {
-                          ha-card {
-                            --chip-height: 125px !important;
-                            margin: -30px 0px 0px 0px;
-                          }
-                        }
+                        {% set margin_mobile = '-30px 0px 0px 0px' %}
+                        {% set margin = '-55px 0px 0px 0px' %}
+                        {% set entity = 'input_boolean.akustika' %}
+                        {% set state_on = 'on' %}
+                        {% include 'cover_card_center_button.jinja' %}
                   - type: spacer
                 alignment: center
                 card_mod:
-                  style: |
-                    ha-card {
-                      margin: 20px 12px 20px 12px;
-                      opacity: 100%;
-                      --chip-background: rgba({{states('input_text.player_card_button_color')}});
-                      --chip-border-radius: 10000px;
-                      --chip-spacing: 25px;
-                      position: absolute !important;
-                      left: 0px;
-                      right: 0px;
-                      top: 53% !important;
-                      transform: translate(0%, -70%);
-                      background-color: none !important;
-                      --chip-height: 110px; /* Значение по умолчанию (для ПК) */
-                    }
-                    ha-card:hover {
-                      opacity: 100%;
-                    }
-
-                    /* Для узких экранов (телефонов) */
-                    @media (max-width: 1150px) {
-                      ha-card {
-                        --chip-height: 65px !important;
-                        top: 50% !important;
-                      }
-                    }
+                  style:
+                    mushroom-template-chip:nth-child(2)$: |
+                      {% if is_state('light.torsher_2','on')%}
+                      {% set opacity = 0.1 %}
+                      {% else %}
+                      {% set opacity = 0.3 %}
+                      {% endif %}
+                      {% include 'shadow_chip_icon.jinja' %}
+                    .: |
+                      {% include 'cover_card_all_buttons_settings.jinja' %}
             card_mod:
               style: |
-                ha-card {
-                  opacity:0%;
-                  --chip-height: 50px;
-                  --chip-background: transparent !important;
-                  --chip-border-radius: 30px;
-                  position: absolute !important;
-                  border-radius: 30px;
-                  top: 0px !important;
-                  left: 0px;
-                  right: 0px;
-                  background-color: transparent !important;
-                  
-                  }
-                ha-card:hover {
-                   opacity: 100%; }
+                {% include 'cover_card_hover_stack.jinja' %}
           - type: custom:mushroom-template-card
             primary: Торшер Дуо
             secondary: "{{state_translated(config.entity)}}"
@@ -441,16 +347,7 @@ cards:
               grid_columns: full
             card_mod:
               style: |
-                ha-card {
-                  margin-top: 0px;
-                  --chip-font-size: 0.3em;
-                  --chip-icon-size: 0.55em;
-                  --chip-height: 55px;
-                  --chip-background: transparent;
-                  --chip-icon-size: 40px;
-                  --chip-padding: 8px;
-                  --chip-border-radius: 100px;
-                  --chip-spacing: 5px;
+                {% include 'cover_card_options_button.jinja' %}
         grid_options:
           columns: 24
           rows: auto
@@ -613,7 +510,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
-                }
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                 }
                 ha-card:before {
                   content: "";
                   position: absolute;
@@ -696,6 +594,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                   
                 }
                 ha-card:before {
                   content: "";
@@ -779,6 +679,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+
                 }
                 ha-card:before {
                   content: "";
@@ -859,6 +761,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                   
                 }
                 ha-card:before {
                   content: "";
@@ -968,6 +872,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -981,6 +887,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -995,6 +903,7 @@ cards:
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
                   z-index: 0;
+                  
                 }
                 ha-card:hover {
                   background-color: rgba(var(--rgb-primary-text-color), 0.1);
@@ -1009,8 +918,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533656304
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: rb
                 icon_color: "1"
                 layout: horizontal
                 double_tap_action:
@@ -1040,8 +953,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533656304
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: rb
                 icon_color: ""
                 layout: horizontal
                 double_tap_action:
@@ -1060,6 +977,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -1073,6 +992,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1101,8 +1022,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533780753
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: wb
                 icon_color: "1"
                 layout: horizontal
                 double_tap_action:
@@ -1132,8 +1057,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533780753
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: wb
                 icon_color: ""
                 layout: horizontal
                 double_tap_action:
@@ -1152,6 +1081,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -1165,6 +1096,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1193,8 +1126,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533851034
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: gb
                 icon_color: "1"
                 layout: horizontal
                 double_tap_action:
@@ -1224,8 +1161,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533851034
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: gb
                 icon_color: ""
                 layout: horizontal
                 double_tap_action:
@@ -1244,6 +1185,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -1257,6 +1200,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1285,8 +1230,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533926442
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: yo
                 icon_color: "1"
                 layout: horizontal
                 double_tap_action:
@@ -1316,8 +1265,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533926442
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: yo
                 icon_color: ""
                 layout: horizontal
                 double_tap_action:
@@ -1336,6 +1289,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -1349,6 +1304,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1377,8 +1334,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689841764449
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: yp
                 icon_color: "1"
                 layout: horizontal
                 double_tap_action:
@@ -1408,8 +1369,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689841764449
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: yp
                 icon_color: ""
                 layout: horizontal
                 double_tap_action:
@@ -1428,6 +1393,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -1441,6 +1408,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1469,8 +1438,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533996451
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: cw
                 icon_color: "1"
                 layout: horizontal
                 double_tap_action:
@@ -1500,8 +1473,12 @@ cards:
                 badge_icon: ""
                 tap_action:
                   action: perform-action
-                  perform_action: script.1689533996451
-                  target: {}
+                  perform_action: script.turn_on
+                  target:
+                    entity_id: script.torsher_duo_color_script
+                  data:
+                    variables:
+                      color: cw
                 icon_color: ""
                 layout: horizontal
                 double_tap_action:
@@ -1520,6 +1497,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -1533,6 +1512,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1618,6 +1599,8 @@ cards:
                         left: 10px;
                         }
                       .container {
+                       --card-primary-font-size: 13.5px;
+                       --card-primary-font-weight: bolder;
                        --card-secondary-font-size: 13.5px;
                        --card-secondary-font-weight: bolder;
                     .: |
@@ -1631,6 +1614,8 @@ cards:
                   overflow: hidden;
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
+                  border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1653,9 +1638,53 @@ cards:
         columns: 4
   - type: heading
     icon: hue:bollard
-    heading: 2.0rc
+    heading: 2.1.1
     heading_style: title
     visibility:
       - condition: state
         entity: "1233"
         state: "12121"
+  - type: markdown
+    content: >+
+      **2.1.1**
+
+      1. Кнопки в обложке подчиняются теме
+
+
+      **2.1**
+
+      1. Добавлена теню вокруг пиктограмм кнопок управления плеером для
+      читаемости на высоких уровнях прозрачности
+
+      2. Добавлено затенение при наведении на обложку
+
+      3. Вынесение стилей кнопок выпажающего в отдельные файлы
+
+      4. Интеграция в системную тему
+
+      5. Вынесение стилей в отдельные файлы
+
+
+      **2.0.1**
+
+      1. Мелкие исправления
+
+      2. Испрвлена вёрстка кнопок управления намобильных устройствах
+
+
+      **2.0**
+
+      1. Добавлена адаптация под широкие экраны
+
+      2. Добавлено фиксированное положение на экране
+
+      3. Новый дизайн меню функций
+
+
+
+
+    visibility:
+      - condition: state
+        entity: "1233"
+        state: "12121"
+    text_only: true

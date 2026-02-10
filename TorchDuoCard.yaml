@@ -8,14 +8,18 @@ cards:
     card:
       type: vertical-stack
       cards:
-        - type: custom:button-card
-          name: Статусная строка
-          styles:
-            card:
-              - height: 1px
-              - background: transparent
-              - border: none
-          action: none
+        - type: heading
+          icon: mdi:information
+          heading: Статусная строка
+          heading_style: title
+          card_mod:
+            style: |
+              ha-card {
+                   background: rgba(200,100,0) !important;
+                 }
+    grid_options:
+      columns: 6
+      rows: auto
   - type: custom:vertical-stack-in-card
     cards:
       - type: custom:mushroom-chips-card
@@ -40,7 +44,7 @@ cards:
                 ha-card:hover {
                   opacity: 1 }     
                 ha-card:active {
-                  scale: 0.8;
+                  scale: 0.9;
                 }  
           - type: spacer
           - type: conditional
@@ -66,7 +70,7 @@ cards:
                   ha-card:hover {
                     opacity: 1 }     
                   ha-card:active {
-                    scale: 0.8;
+                    scale: 0.9;
                   }  
           - type: conditional
             conditions:
@@ -91,7 +95,7 @@ cards:
                   ha-card:hover {
                     opacity: 1 }     
                   ha-card:active {
-                    scale: 0.8;
+                    scale: 0.9;
                   }  
           - type: template
             icon: mdi:information
@@ -109,7 +113,7 @@ cards:
                 ha-card:hover {
                   opacity: 1 }     
                 ha-card:active {
-                  scale: 0.8;
+                  scale: 0.9;
                 }  
         alignment: start
         card_mod:
@@ -119,42 +123,11 @@ cards:
             {% include 'title_chips_scrollable.jinja' %}
     card_mod:
       style: |
-        ha-card {
-          /* Стили ha-card */
-          position: fixed !important;
-          top: 100px !important;
-          left: calc(50vw + var(--mdc-drawer-width, 0px)/2) !important;
-          transform: translateX(-50%) !important;
-          width: calc(90vw - var(--mdc-drawer-width, 0px)) !important;
-          max-width: 950px !important;
-          min-width: 450px !important;
-          height: calc(100% - 40px) !important;
-          max-height: 60px !important;  /* 30px - отступ от краёв */
-          min-height: 50px !important;  /* Минимальная высота */
-          
-
-
-          height: 100vh !important;
-          z-index: 1 !important;
-          --chip-height: 60px;
-          --chip-spacing: 20px;
-          --chip-background: transparent !important;
-          --chip-icon-size: 35px; 
-          --chip-border-radius: 100px;
-          --chip-padding: 12px;
-          /* Визуальные стили ha-card */
-          background: rgba(0,0,0,0) !important;
-
-
-          padding: 0px 0px !important;
-
-          
-          /* Выравнивание содержимого */
-
-          
-          /* Анимация */
-          transition: all 0.3s ease !important;
-        }
+        {% set top = 100 %}
+        {% include 'fixed_settings.jinja' %}
+    grid_options:
+      columns: 6
+      rows: auto
   - type: conditional
     conditions:
       - condition: state
@@ -163,15 +136,18 @@ cards:
     card:
       type: vertical-stack
       cards:
-        - type: custom:button-card
-          name: Карта
-          styles:
-            card:
-              - height: 1px
-              - background: transparent
-              - border: none
-              - color: red
-          action: none
+        - type: heading
+          icon: mdi:view-dashboard
+          heading: Карта
+          heading_style: title
+          card_mod:
+            style: |
+              ha-card {
+                   background: rgba(200,0,100) !important;
+                 }
+    grid_options:
+      columns: 6
+      rows: auto
   - type: custom:vertical-stack-in-card
     cards:
       - type: vertical-stack
@@ -260,56 +236,25 @@ cards:
                   endif %}
                 card_mod:
                   style:
-                    .: |
+                    .: >
 
                       {% set hover = 'true' %}
+
                       {% set stating = 'true' %}
+
                       {% set state_on = 'on' %}
+
+                      {% set color = 'rgba(120,120,120,0.2)' %}
+
+                      {% set hover_color_off = 'rgba(120,120,120,0.3)
+                      !important' %}
+
                       {% include 'chip_settings_style.jinja' %}
             alignment: center
             card_mod:
               style:
                 .: |
                   {% include 'chip_buttons_big.jinja' %}
-          - type: custom:mushroom-chips-card
-            chips:
-              - type: template
-                tap_action:
-                  action: navigate
-                  navigation_path: "#torsher_duo"
-                icon: mdi:dots-horizontal
-                icon_color: "1"
-                hold_action:
-                  action: none
-                double_tap_action:
-                  action: none
-                card_mod:
-                  style:
-                    .: |
-                      {% set hover = 'true' %}
-                      {% set stating = 'false' %}
-                      {% include 'chip_settings_style.jinja' %}
-            alignment: center
-            layout_options:
-              grid_columns: full
-            card_mod:
-              style:
-                .: |
-                  {% set top = '40' %}
-                  {% include 'chip_buttons_small.jinja' %}
-
-
-
-
-
-
-
-
-
-
-
-
-                    
         grid_options:
           columns: 24
           rows: auto
@@ -335,28 +280,33 @@ cards:
               -webkit-transform: translate3d(0,0,0);
 
             }
+    grid_options:
+      columns: 6
+      rows: auto
     card_mod:
       style: |
-        ha-card {
-          /* Стили ha-card */
-          position: fixed !important;
-          top: 160px !important;
-          left: calc(50vw + var(--mdc-drawer-width, 0px)/2) !important;
-          transform: translateX(-50%) !important;
-          width: calc(90vw - var(--mdc-drawer-width, 0px)) !important;
-          max-width: 950px !important;
-          min-width: 450px !important;
-          z-index: 1 !important;
-          /* Визуальные стили ha-card */
-          background: transparent !important;
-
-          
-          /* Выравнивание содержимого */
-
-          
-          /* Анимация */
-          transition: all 0.3s ease !important;
-        }
+        {% set top = 160 %}
+        {% include 'fixed_settings.jinja' %}
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: "12"
+        state: "12"
+    card:
+      type: vertical-stack
+      cards:
+        - type: heading
+          icon: hue:bollard
+          heading: 0.3.8
+          heading_style: title
+          card_mod:
+            style: |
+              ha-card {
+                   background: rgba(100,0,200) !important;
+                 }
+    grid_options:
+      columns: 6
+      rows: auto
   - type: vertical-stack
     cards:
       - type: custom:bubble-card
@@ -1599,14 +1549,6 @@ cards:
                 }
                   
         columns: 4
-  - type: heading
-    icon: hue:bollard
-    heading: 0.3.0.5
-    heading_style: title
-    visibility:
-      - condition: state
-        entity: "1233"
-        state: "12121"
   - type: markdown
     content: |+
       **0.3.0**
@@ -1619,3 +1561,86 @@ cards:
         entity: "1233"
         state: "12121"
     text_only: true
+  - type: vertical-stack
+    cards:
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: "12"
+            state: "12"
+        card:
+          type: vertical-stack
+          cards:
+            - type: heading
+              icon: mdi:lightbulb
+              heading: Бар
+              heading_style: title
+              card_mod:
+                style: |
+                  ha-card {
+                       background: rgba(100,100,60) !important;
+                     }
+        grid_options:
+          columns: 6
+          rows: auto
+      - type: custom:button-card
+        name: null
+        styles:
+          card:
+            - height: 100px
+            - background: transparent
+            - border: none
+        action: none
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: back
+            card_mod:
+              style: |
+                ha-card:hover {
+                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                  }
+          - type: template
+            tap_action:
+              action: navigate
+              navigation_path: "#torsher_duo"
+            icon: mdi:dots-horizontal
+            icon_color: "1"
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style:
+                .: |
+                  {% set hover = 'true' %}
+                  {% set stating = 'false' %}
+                  {% include 'chip_settings_style.jinja' %}
+        alignment: center
+        card_mod:
+          style:
+            mushroom-template-chip:nth-child(1)$: |
+              {% set opacity = 0.3 %}
+              {% include 'shadow_chip_icon.jinja' %}
+            mushroom-template-chip:nth-child(2)$: |
+              {% set opacity = 0.3 %}
+              {% include 'shadow_chip_icon.jinja' %}
+            mushroom-template-chip:nth-child(3)$: |
+              {% set opacity = 0.3 %}
+              {% include 'shadow_chip_icon.jinja' %}
+            mushroom-template-chip:nth-child(4)$: |
+              {% set opacity = 0.3 %}
+              {% include 'shadow_chip_icon.jinja' %}
+            mushroom-template-chip:nth-child(5)$: |
+              {% set opacity = 0.3 %}
+              {% include 'shadow_chip_icon.jinja' %}
+            mushroom-template-chip:nth-child(6)$: |
+              {% set opacity = 0.3 %}
+              {% include 'shadow_chip_icon.jinja' %}
+            .: |
+
+              {% set max_width =150 %}
+              {% set chip_height = 40 %}
+              {% set chip_padding = 5 %}
+              {% set icon_size = 30 %}
+              {% set chip_spacing = 20 %}
+              {% include 'fixed_bottom_bar.jinja' %}

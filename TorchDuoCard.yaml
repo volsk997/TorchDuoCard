@@ -46,7 +46,7 @@ cards:
           - type: conditional
             conditions:
               - condition: state
-                entity: light.yeelight_colorb_0x1b11995d
+                entity: light.torsher_duo_niz
                 state: "on"
             chip:
               type: template
@@ -58,7 +58,7 @@ cards:
                 action: none
               icon: mdi:circle
               icon_color: "{{state_attr(config.entity, 'rgb_color')}}"
-              entity: light.yeelight_colorb_0x1b11995d
+              entity: light.torsher_duo_niz
               card_mod:
                 style: |
                   ha-card {
@@ -71,7 +71,7 @@ cards:
           - type: conditional
             conditions:
               - condition: state
-                entity: light.yeelight_colorb_0xed432a3
+                entity: light.torsher_duo_verkh
                 state: "on"
             chip:
               type: template
@@ -83,7 +83,7 @@ cards:
                 action: none
               icon: mdi:circle
               icon_color: "{{state_attr(config.entity, 'rgb_color')}}"
-              entity: light.yeelight_colorb_0xed432a3
+              entity: light.torsher_duo_verkh
               card_mod:
                 style: |
                   ha-card {
@@ -138,7 +138,7 @@ cards:
           z-index: 1 !important;
           --chip-height: 60px;
           --chip-spacing: 20px;
-          --chip-background: transparent;
+          --chip-background: transparent !important;
           --chip-icon-size: 35px; 
           --chip-border-radius: 100px;
           --chip-padding: 12px;
@@ -191,24 +191,28 @@ cards:
             double_tap_action:
               action: none
             fill_container: true
+            hold_action:
+              action: none
             card_mod:
               style: |
                 {% set domain = 'light' %}
-                {% if is_state('light.yeelight_colorb_0x1b11995d','on') and
-                is_state('light.yeelight_colorb_0xed432a3','on') %}
-                    {% if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
-                        {% set file = "linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.5) 100%);" %}
+                {% set entity_down = 'light.lamp15' %}
+                {% set entity_up = 'light.lamp16' %}
+                {% if is_state(entity_down,'on') and
+                is_state(entity_up,'on') %}
+                    {% if state_attr(entity_down,'rgb_color') == state_attr(entity_up,'rgb_color') %}
+                        {% set file = "linear-gradient(180deg, rgba(" ~ state_attr(entity_down,'rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr(entity_up,'rgb_color')|replace("(","")|replace(")","") ~ ",0.5) 100%);" %}
                     {% else %}
-                        {% set file = "linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 100%);" %}
+                        {% set file = "linear-gradient(180deg, rgba(" ~ state_attr(entity_down,'rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr(entity_up,'rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 100%);" %}
                     {% endif %}
-                {% elif is_state('light.yeelight_colorb_0x1b11995d','on') and
-                is_state('light.yeelight_colorb_0xed432a3','off') %}
-                    {% set file = "linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(40,40,40,0.5) 90%);" %}
-                {% elif is_state('light.yeelight_colorb_0x1b11995d','off') and
-                is_state('light.yeelight_colorb_0xed432a3','on') %}
-                    {% set file = "linear-gradient(180deg, rgba(40,40,40,0.5), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 150%);" %}
+                {% elif is_state(entity_down,'on') and
+                is_state(entity_up,'off') %}
+                    {% set file = "linear-gradient(180deg, rgba(" ~ state_attr(entity_down,'rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(40,40,40,0.5) 90%);" %}
+                {% elif is_state(entity_down,'off') and
+                is_state(entity_up,'on') %}
+                    {% set file = "linear-gradient(180deg, rgba(40,40,40,0.5), rgba(" ~ state_attr(entity_up,'rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 150%);" %}
                 {% else %}
-                    {% set file = "linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);" %}
+                    {% set file = "linear-gradient(180deg, rgba(90,90,90,1), rgba(0,0,0,1) 100%);" %}
                 {% endif %}
                 {% set entity = 'light.torsher_2' %}
                 {% set state_on = 'on' %}
@@ -249,7 +253,7 @@ cards:
                   action: none
                 double_tap_action:
                   action: none
-                icon: fas:power-off
+                icon: mdi:power
                 icon_color: >-
                   {%if is_state('light.torsher_2','on')%}
                   {{state_attr(config.entity,'rgb_color')}} {%else %} '1' {%
@@ -257,17 +261,16 @@ cards:
                 card_mod:
                   style:
                     .: |
+
                       {% set hover = 'true' %}
-                      {% set icon_size = '1.5' %}
-                      {% include 'button_opacity.jinja' %}
+                      {% set stating = 'true' %}
+                      {% set state_on = 'on' %}
+                      {% include 'chip_settings_style.jinja' %}
             alignment: center
             card_mod:
               style:
-                .: >
-                  {% set background_color =
-                  '1rgba(var(--rgb-primary-text-color), 0.1)' %}
-
-                  {% include 'cover_buttons_stack.jinja' %}
+                .: |
+                  {% include 'chip_buttons_big.jinja' %}
           - type: custom:mushroom-chips-card
             chips:
               - type: template
@@ -284,20 +287,29 @@ cards:
                   style:
                     .: |
                       {% set hover = 'true' %}
-                      {% set icon_size = '1.2' %}
-                      {% include 'button_opacity.jinja' %}
+                      {% set stating = 'false' %}
+                      {% include 'chip_settings_style.jinja' %}
             alignment: center
             layout_options:
               grid_columns: full
             card_mod:
               style:
                 .: |
-                  ha-card {
-                    --chip-background: none !important;
-                    --chip-border-radius: 1000px;
-                    --chip-height: 45px;
-                    --chip-spacing:0px;
-                    margin-top: 0px;
+                  {% set top = '40' %}
+                  {% include 'chip_buttons_small.jinja' %}
+
+
+
+
+
+
+
+
+
+
+
+
+                    
         grid_options:
           columns: 24
           rows: auto
@@ -421,7 +433,7 @@ cards:
                 hold_action:
                   action: none
                 layout: horizontal
-                entity: light.yeelight_colorb_0x1b11995d
+                entity: light.torsher_duo_verkh
                 card_mod:
                   style:
                     mushroom-shape-icon$: |
@@ -436,7 +448,7 @@ cards:
                         background-color: rgba(255,255,255,0) ;
                       } 
               - type: custom:mushroom-light-card
-                entity: light.yeelight_colorb_0x1b11995d
+                entity: light.torsher_duo_verkh
                 use_light_color: false
                 secondary_info: none
                 primary_info: none
@@ -472,8 +484,8 @@ cards:
                   bottom: -50%;
                   
                   
-                  {% if is_state('light.yeelight_colorb_0x1b11995d','on') %}
-                  background-color: rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')| replace("(","") | replace(")","")}}, 0.7);
+                  {% if is_state('light.torsher_duo_verkh','on') %}
+                  background-color: rgba({{state_attr('light.torsher_duo_verkh','rgb_color')| replace("(","") | replace(")","")}}, 0.7);
                   {% else %} 
                   background-color: rgba(var(--rgb-primary-text-color), 0.05);
                   {% endif %}
@@ -485,7 +497,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;!important;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -506,7 +518,7 @@ cards:
                 hold_action:
                   action: none
                 layout: horizontal
-                entity: light.yeelight_colorb_0xed432a3
+                entity: light.torsher_duo_niz
                 card_mod:
                   style:
                     mushroom-shape-icon$: |
@@ -521,7 +533,7 @@ cards:
                         background-color: rgba(255,255,255,0) ;
                       } 
               - type: custom:mushroom-light-card
-                entity: light.yeelight_colorb_0xed432a3
+                entity: light.torsher_duo_niz
                 use_light_color: false
                 secondary_info: none
                 primary_info: none
@@ -557,8 +569,8 @@ cards:
                   bottom: -50%;
                   
                   
-                  {% if is_state('light.yeelight_colorb_0xed432a3','on') %}
-                  background-color: rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')| replace("(","") | replace(")","")}}, 0.7);
+                  {% if is_state('light.torsher_duo_niz','on') %}
+                  background-color: rgba({{state_attr('light.torsher_duo_niz','rgb_color')| replace("(","") | replace(")","")}}, 0.7);
                   {% else %} 
                   background-color: rgba(var(--rgb-primary-text-color), 0.05);
                   {% endif %}
@@ -570,7 +582,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -653,7 +665,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -735,7 +747,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
         columns: 2
@@ -857,7 +869,7 @@ cards:
                   
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -961,7 +973,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -1065,7 +1077,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -1169,7 +1181,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -1273,7 +1285,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -1377,7 +1389,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -1481,7 +1493,7 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
           - type: custom:vertical-stack-in-card
@@ -1583,13 +1595,13 @@ cards:
                   z-index: 0;
                 }
                 ha-card:hover {
-                  background-color: rgba(var(--rgb-primary-text-color), 0.1);
+                  background-color: rgba(var(--rgb-primary-text-color), 0.1)!important;;
                 }
                   
         columns: 4
   - type: heading
     icon: hue:bollard
-    heading: "3.0"
+    heading: 0.3.0.5
     heading_style: title
     visibility:
       - condition: state
@@ -1597,7 +1609,7 @@ cards:
         state: "12121"
   - type: markdown
     content: |+
-      **3.0**
+      **0.3.0**
 
       1. Новый дизайн
 

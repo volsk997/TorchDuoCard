@@ -134,18 +134,18 @@ cards:
                     {%if is_state('light.yeelight_colorb_0x1b11995d','on') and
               is_state('light.yeelight_colorb_0xed432a3','on') %}
                 {%if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
-                       background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.2) 100%);
+                       background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 100%);
                 {% else %} 
-                       background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 100%);
+                       background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 100%);
                 {% endif%}
               {%elif is_state('light.yeelight_colorb_0x1b11995d','on') and
               is_state('light.yeelight_colorb_0xed432a3','off') %}
-                 background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.5), rgba(40,40,40,0.5) 90%);
+                 background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba(40,40,40,0.5) 90%);
               {%elif is_state('light.yeelight_colorb_0x1b11995d','off') and
               is_state('light.yeelight_colorb_0xed432a3','on') %}
-                 background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 150%);
+                 background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 150%);
               {% else %}
-                 background: linear-gradient(180deg, rgba(90,90,90,0.5), rgba(0,0,0,0.5) 200%);
+                 background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);
               {% endif %}
               
               background-size: cover;
@@ -212,21 +212,21 @@ cards:
                       transform: translate3d(0,0,0);
                       -webkit-transform: translate3d(0,0,0);
                       content: "";
-                      {%if is_state('light.yeelight_colorb_0x1b11995d','on') and
+                            {%if is_state('light.yeelight_colorb_0x1b11995d','on') and
                       is_state('light.yeelight_colorb_0xed432a3','on') %}
                         {%if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
-                               background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.2) 100%);
+                               background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 100%);
                         {% else %} 
-                               background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 100%);
+                               background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 100%);
                         {% endif%}
                       {%elif is_state('light.yeelight_colorb_0x1b11995d','on') and
                       is_state('light.yeelight_colorb_0xed432a3','off') %}
-                         background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.5), rgba(40,40,40,0.5) 90%);
+                         background: linear-gradient(180deg, rgba({{state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace ("(","")|replace (")","")}},0.8), rgba(40,40,40,0.5) 90%);
                       {%elif is_state('light.yeelight_colorb_0x1b11995d','off') and
                       is_state('light.yeelight_colorb_0xed432a3','on') %}
-                         background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.5) 150%);
+                         background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba({{state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace ("(","")|replace (")","")}},0.8) 150%);
                       {% else %}
-                         background: linear-gradient(180deg, rgba(90,90,90,0.5), rgba(0,0,0,0.5) 200%);
+                         background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);
                       {% endif %}
                       
                       background-size: cover;
@@ -594,7 +594,7 @@ cards:
   - type: heading
     icon: mdi:speaker
     heading_style: title
-    heading: 1.0RC1
+    heading: 1.0.0.1
     visibility:
       - condition: state
         entity: sensor.balkon_window_l_battery

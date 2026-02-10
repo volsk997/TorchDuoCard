@@ -267,18 +267,30 @@ cards:
                   style: |
                     ha-card {
                       margin: -30px 0px 0px 0px;
-                         --chip-border-radius: 50%;
                          --chip-height: 125px;
-                         --chip-background:             
-                            {%if is_state('light.torsher_2','on')%} rgba({{states('input_text.player_card_button_active_color')}})
-                            {%else %} rgba({{states('input_text.player_card_button_color')}});
-                            {% endif %};
-                      weight: 0px; }
+                      weight: 0px; 
+                      /* Стили ha-card */
+                      --chip-background: transparent;
+
+                      --chip-padding: -20px;
+                      /* Визуальные стили ha-card */
+                      background: rgba(var(--rgb-card-background-color), 0.5) !important;
+                      backdrop-filter: blur(10px) !important;
+                      -webkit-backdrop-filter: blur(10px) !important; /* Для Safari */
+                      border-radius: 150px !important;
+                      box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.2) !important;
+                      border: 1px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                      
+                      /* Выравнивание содержимого */
+                      display: flex !important;
+                      flex-direction: column !important;
+                      justify-content: center !important;
+                      align-items: center !important;
+                      
+                      /* Анимация */
+                      transition: all 0.3s ease !important;
+                      }
                     ha-card:hover {
-                      --chip-background:             
-                         {%if is_state('light.torsher_2','on')%} rgba({{states('input_text.player_card_button_hover_active_color')}});  
-                         {%else %} rgba({{states('input_text.player_card_button_hover_color')}})
-                         {% endif %};
                       scale: 1.1;}
               - type: spacer
             alignment: center
@@ -321,6 +333,7 @@ cards:
                 icon_color: ""
                 card_mod:
                   style: |
+
                     ha-card:hover {
                       --chip-background: rgba(50,50,50,1);
                       scale: 1.1;}
@@ -472,6 +485,113 @@ cards:
               }
             ha-card:hover {
                opacity: 100%; }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            icon: lucide:share
+            icon_color: disabled
+            tap_action:
+              action: navigate
+              navigation_path: "#torsher_duo"
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card:hover {
+                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                  }
+        alignment: center
+        layout_options:
+          grid_columns: full
+        card_mod:
+          style: |
+            ha-card {
+              margin-top: 50px;
+              --chip-font-size: 0.3em;
+              --chip-height: 50px;
+              --chip-background: transparent;
+              --chip-padding: 40px;
+              --chip-border-radius: 100px;
+              --chip-spacing: 5px;
+
+
+            }
+    card_mod:
+      style: |
+        ha-card:before {
+          transform: translate3d(0,0,0);
+          -webkit-transform: translate3d(0,0,0);
+          content: "";
+          position: absolute;
+          height: 100%;
+          width: 100%;
+
+          background: transparent !important;
+          filter: blur(0px) saturate(200%);
+          background-size: 100% 100%;
+        }
+        ha-card {
+
+        background-color: transparent !important;
+        padding: 0px;
+          transform: translate3d(0,0,0);
+          -webkit-transform: translate3d(0,0,0);
+
+        }
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#torsher_duo"
+        name: Торшер Дуо
+        icon: hue:bollard
+        margin_top_mobile: calc(100vh - 450px)
+        margin_top_desktop: calc(100vh - 400px)
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+        show_header: false
+        close_by_clicking_outside: false
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            content: Торшер Дуо
+            double_tap_action:
+              action: none
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            icon: ""
+          - type: spacer
+          - type: back
+        layout_options:
+          grid_columns: full
+        card_mod:
+          style:
+            mushroom-back-chip:nth-child(3)$: |
+              ha-state-icon {
+                --card-mod-icon: mdi:close;
+              }
+            .: |
+              ha-card {
+                margin: 12px 0px 0px;
+                --chip-background: none;
+                --chip-border-width: 0;
+                --chip-box-shadow: none;
+                --chip-border-radius: 12px;
+                --chip-height: 40px;
+                --chip-padding: 14px;
+                --chip-spacing: -35px;
+                --chip-icon-size: 0.7em;
+                --chip-font-size: 0.6em;
+              }
+              }
       - type: custom:vertical-stack-in-card
         cards:
           - type: custom:mushroom-light-card
@@ -557,44 +677,19 @@ cards:
         card_mod:
           style: |
             ha-card {
-              opacity:0%;
+              opacity:100%;
               --chip-height: 50px;
               --chip-background: rgba({{states('input_text.player_card_button_color')}});
               --chip-border-radius: 30px;
               border-radius: 30px;
-              top: 0px !important;
-              left: 0px;
-              right: 0px;
               background-color: transparent !important;
               }
             ha-card:hover {
                opacity: 100%; }
-    card_mod:
-      style: |
-        ha-card:before {
-          transform: translate3d(0,0,0);
-          -webkit-transform: translate3d(0,0,0);
-          content: "";
-          position: absolute;
-          height: 100%;
-          width: 100%;
-
-          background: transparent !important;
-          filter: blur(0px) saturate(200%);
-          background-size: 100% 100%;
-        }
-        ha-card {
-
-        background-color: transparent !important;
-        padding: 0px;
-          transform: translate3d(0,0,0);
-          -webkit-transform: translate3d(0,0,0);
-
-        }
   - type: heading
     icon: mdi:speaker
     heading_style: title
-    heading: 1.0.0.1
+    heading: 1.1.5
     visibility:
       - condition: state
         entity: sensor.balkon_window_l_battery

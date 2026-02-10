@@ -35,9 +35,13 @@ cards:
               action: none
             card_mod:
               style: |
+                ha-card {
+                  opacity: 0.4 }   
                 ha-card:hover {
-                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                   }
+                  opacity: 1 }     
+                ha-card:active {
+                  scale: 0.8;
+                }  
           - type: spacer
           - type: conditional
             conditions:
@@ -57,9 +61,13 @@ cards:
               entity: light.yeelight_colorb_0x1b11995d
               card_mod:
                 style: |
+                  ha-card {
+                    opacity: 0.4 }   
                   ha-card:hover {
-                    --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                     }
+                    opacity: 1 }     
+                  ha-card:active {
+                    scale: 0.8;
+                  }  
           - type: conditional
             conditions:
               - condition: state
@@ -78,12 +86,15 @@ cards:
               entity: light.yeelight_colorb_0xed432a3
               card_mod:
                 style: |
+                  ha-card {
+                    opacity: 0.4 }   
                   ha-card:hover {
-                    --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                     }
+                    opacity: 1 }     
+                  ha-card:active {
+                    scale: 0.8;
+                  }  
           - type: template
             icon: mdi:information
-            icon_color: disabled
             tap_action:
               action: more-info
             hold_action:
@@ -93,9 +104,13 @@ cards:
             entity: light.torsher_2
             card_mod:
               style: |
+                ha-card {
+                  opacity: 0.4 }   
                 ha-card:hover {
-                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                   }
+                  opacity: 1 }     
+                ha-card:active {
+                  scale: 0.8;
+                }  
         alignment: start
         card_mod:
           style: |
@@ -110,8 +125,9 @@ cards:
           top: 100px !important;
           left: calc(50vw + var(--mdc-drawer-width, 0px)/2) !important;
           transform: translateX(-50%) !important;
-          width: calc(100% - 40px) !important;
+          width: calc(90vw - var(--mdc-drawer-width, 0px)) !important;
           max-width: 950px !important;
+          min-width: 450px !important;
           height: calc(100% - 40px) !important;
           max-height: 60px !important;  /* 30px - отступ от краёв */
           min-height: 50px !important;  /* Минимальная высота */
@@ -171,129 +187,33 @@ cards:
             layout: vertical
             icon_color: ""
             tap_action:
-              action: more-info
+              action: none
             double_tap_action:
               action: none
             fill_container: true
             card_mod:
-              style: >
+              style: |
                 {% set domain = 'light' %}
-
                 {% if is_state('light.yeelight_colorb_0x1b11995d','on') and
                 is_state('light.yeelight_colorb_0xed432a3','on') %}
                     {% if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
-                        {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.5) 100%);" %}
+                        {% set file = "linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.5) 100%);" %}
                     {% else %}
-                        {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 100%);" %}
+                        {% set file = "linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 100%);" %}
                     {% endif %}
                 {% elif is_state('light.yeelight_colorb_0x1b11995d','on') and
                 is_state('light.yeelight_colorb_0xed432a3','off') %}
-                    {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(40,40,40,0.5) 90%);" %}
+                    {% set file = "linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(40,40,40,0.5) 90%);" %}
                 {% elif is_state('light.yeelight_colorb_0x1b11995d','off') and
                 is_state('light.yeelight_colorb_0xed432a3','on') %}
-                    {% set file = "background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 150%);" %}
+                    {% set file = "linear-gradient(180deg, rgba(40,40,40,0.5), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 150%);" %}
                 {% else %}
-                    {% set file = "background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);" %}
+                    {% set file = "linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);" %}
                 {% endif %}
+                {% set entity = 'light.torsher_2' %}
+                {% set state_on = 'on' %}
 
                 {% include 'cover_card_cover.jinja' %}
-          - type: custom:stack-in-card
-            cards:
-              - type: custom:stack-in-card
-                cards:
-                  - type: custom:mushroom-template-card
-                    primary: |+
-
-                    secondary: ""
-                    icon: ""
-                    picture: ""
-                    badge_icon: ""
-                    badge_color: ""
-                    layout: vertical
-                    icon_color: ""
-                    tap_action:
-                      action: more-info
-                    double_tap_action:
-                      action: none
-                    fill_container: true
-                    card_mod:
-                      style: >
-                        {% set domain = 'light' %}
-
-                        {% if is_state('light.yeelight_colorb_0x1b11995d','on')
-                        and
-
-                        is_state('light.yeelight_colorb_0xed432a3','on') %}
-                            {% if state_attr('light.yeelight_colorb_0x1b11995d','rgb_color') == state_attr('light.yeelight_colorb_0xed432a3','rgb_color') %}
-                                {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.5) 100%);" %}
-                            {% else %}
-                                {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 100%);" %}
-                            {% endif %}
-                        {% elif
-                        is_state('light.yeelight_colorb_0x1b11995d','on') and
-
-                        is_state('light.yeelight_colorb_0xed432a3','off') %}
-                            {% set file = "background: linear-gradient(180deg, rgba(" ~ state_attr('light.yeelight_colorb_0x1b11995d','rgb_color')|replace("(","")|replace(")","") ~ ",0.8), rgba(40,40,40,0.5) 90%);" %}
-                        {% elif
-                        is_state('light.yeelight_colorb_0x1b11995d','off') and
-
-                        is_state('light.yeelight_colorb_0xed432a3','on') %}
-                            {% set file = "background: linear-gradient(180deg, rgba(40,40,40,0.5), rgba(" ~ state_attr('light.yeelight_colorb_0xed432a3','rgb_color')|replace("(","")|replace(")","") ~ ",0.8) 150%);" %}
-                        {% else %}
-                            {% set file = "background: linear-gradient(180deg, rgba(90,90,90,0.1), rgba(0,0,0,1) 100%);" %}
-                        {% endif %}
-
-                        {% set opacity_variable = 'filter:  opacity(50%) 
-                        !important;'%}
-
-                        {% include 'cover_card_cover.jinja' %}
-                card_mod:
-                  style: |
-                    ha-card {
-                      border-radius: 35px;
-                    }
-              - type: custom:mushroom-chips-card
-                chips:
-                  - type: spacer
-                  - type: template
-                    entity: light.torsher_2
-                    tap_action:
-                      action: toggle
-                    hold_action:
-                      action: none
-                    double_tap_action:
-                      action: none
-                    icon: mdi:power
-                    icon_color: >-
-                      {%if is_state('light.torsher_2','on')%}
-                      {{state_attr(config.entity,'rgb_color')}}
-
-                      {%else %} '1'
-
-                      {% endif %}
-                    card_mod:
-                      style: |
-                        {% set margin_mobile = '-30px 0px 0px 0px' %}
-                        {% set margin = '-55px 0px 0px 0px' %}
-                        {% set entity = 'input_boolean.akustika' %}
-                        {% set state_on = 'on' %}
-                        {% include 'cover_card_center_button.jinja' %}
-                  - type: spacer
-                alignment: center
-                card_mod:
-                  style:
-                    mushroom-template-chip:nth-child(2)$: |
-                      {% if is_state('light.torsher_2','on')%}
-                      {% set opacity = 0.1 %}
-                      {% else %}
-                      {% set opacity = 0.3 %}
-                      {% endif %}
-                      {% include 'shadow_chip_icon.jinja' %}
-                    .: |
-                      {% include 'cover_card_all_buttons_settings.jinja' %}
-            card_mod:
-              style: |
-                {% include 'cover_card_hover_stack.jinja' %}
           - type: custom:mushroom-template-card
             primary: Торшер Дуо
             secondary: "{{state_translated(config.entity)}}"
@@ -312,13 +232,7 @@ cards:
             card_mod:
               style:
                 .: |
-                  ha-card { 
-                    margin-top: 20px;
-                    margin-bottom: 20px;
-                    margin-left: 0px;
-                    margin-right: 0px;
-                    background: none !important ;
-                    }
+                  {% include 'cover_device_name.jinja' %}
                 mushroom-state-info$: |
                   .container {
                    --card-secondary-font-size: 15px;
@@ -328,26 +242,62 @@ cards:
           - type: custom:mushroom-chips-card
             chips:
               - type: template
+                entity: light.torsher_2
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                icon: fas:power-off
+                icon_color: >-
+                  {%if is_state('light.torsher_2','on')%}
+                  {{state_attr(config.entity,'rgb_color')}} {%else %} '1' {%
+                  endif %}
+                card_mod:
+                  style:
+                    .: |
+                      {% set hover = 'true' %}
+                      {% set icon_size = '1.5' %}
+                      {% include 'button_opacity.jinja' %}
+            alignment: center
+            card_mod:
+              style:
+                .: >
+                  {% set background_color =
+                  '1rgba(var(--rgb-primary-text-color), 0.1)' %}
+
+                  {% include 'cover_buttons_stack.jinja' %}
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
                 tap_action:
                   action: navigate
                   navigation_path: "#torsher_duo"
                 icon: mdi:dots-horizontal
-                icon_color: disabled
+                icon_color: "1"
                 hold_action:
                   action: none
                 double_tap_action:
                   action: none
                 card_mod:
-                  style: |
-                    ha-card:hover {
-                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                      }
-            alignment: end
+                  style:
+                    .: |
+                      {% set hover = 'true' %}
+                      {% set icon_size = '1.2' %}
+                      {% include 'button_opacity.jinja' %}
+            alignment: center
             layout_options:
               grid_columns: full
             card_mod:
-              style: |
-                {% include 'cover_card_options_button.jinja' %}
+              style:
+                .: |
+                  ha-card {
+                    --chip-background: none !important;
+                    --chip-border-radius: 1000px;
+                    --chip-height: 45px;
+                    --chip-spacing:0px;
+                    margin-top: 0px;
         grid_options:
           columns: 24
           rows: auto
@@ -511,6 +461,7 @@ cards:
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
                   border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                  }
                 ha-card:before {
                   content: "";
@@ -595,7 +546,7 @@ cards:
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
                   border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
-                   
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -680,7 +631,7 @@ cards:
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
                   border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
-
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -762,7 +713,7 @@ cards:
                   transform: translate3d(0,0,0);
                   -webkit-transform: translate3d(0,0,0);
                   border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
-                   
+                  border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
                 }
                 ha-card:before {
                   content: "";
@@ -1638,49 +1589,17 @@ cards:
         columns: 4
   - type: heading
     icon: hue:bollard
-    heading: 2.1.1
+    heading: "3.0"
     heading_style: title
     visibility:
       - condition: state
         entity: "1233"
         state: "12121"
   - type: markdown
-    content: >+
-      **2.1.1**
+    content: |+
+      **3.0**
 
-      1. Кнопки в обложке подчиняются теме
-
-
-      **2.1**
-
-      1. Добавлена теню вокруг пиктограмм кнопок управления плеером для
-      читаемости на высоких уровнях прозрачности
-
-      2. Добавлено затенение при наведении на обложку
-
-      3. Вынесение стилей кнопок выпажающего в отдельные файлы
-
-      4. Интеграция в системную тему
-
-      5. Вынесение стилей в отдельные файлы
-
-
-      **2.0.1**
-
-      1. Мелкие исправления
-
-      2. Испрвлена вёрстка кнопок управления намобильных устройствах
-
-
-      **2.0**
-
-      1. Добавлена адаптация под широкие экраны
-
-      2. Добавлено фиксированное положение на экране
-
-      3. Новый дизайн меню функций
-
-
+      1. Новый дизайн
 
 
     visibility:

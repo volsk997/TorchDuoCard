@@ -326,7 +326,20 @@ cards:
         close_by_clicking_outside: false
         backdrop_blur: "5"
         bg_blur: "100"
-        bg_opacity: "88"
+        bg_opacity: "0"
+        button_type: name
+        bg_color: "#000"
+        styles: |
+          #root {
+            background-color: rgba(4, 0, 0, 0.25);
+            border: 1px solid rgba(209, 213, 219, 0.1);
+            background: rgba(255, 255, 255, 0.10);
+            box-shadow: 
+               0 8px 8px rgba(0, 0, 0, 0.1),
+               inset 0 1px 0 rgba(255, 255, 255, 0.5),
+               inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+               inset 0 0 40px 5px rgba(255, 255, 255, 0.05);
+            }
       - type: custom:mushroom-chips-card
         chips:
           - type: template
@@ -1549,18 +1562,6 @@ cards:
                 }
                   
         columns: 4
-  - type: markdown
-    content: |+
-      **0.3.0**
-
-      1. Новый дизайн
-
-
-    visibility:
-      - condition: state
-        entity: "1233"
-        state: "12121"
-    text_only: true
   - type: vertical-stack
     cards:
       - type: conditional
@@ -1595,10 +1596,11 @@ cards:
         chips:
           - type: back
             card_mod:
-              style: |
-                ha-card:hover {
-                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                  }
+              style:
+                .: |
+                  {% set hover = 'true' %}
+                  {% set stating = 'false' %}
+                  {% include 'chip_settings_style.jinja' %}
           - type: template
             tap_action:
               action: navigate
@@ -1619,22 +1621,22 @@ cards:
         card_mod:
           style:
             mushroom-template-chip:nth-child(1)$: |
-              {% set opacity = 0.3 %}
+              {% set opacity = 0 %}
               {% include 'shadow_chip_icon.jinja' %}
             mushroom-template-chip:nth-child(2)$: |
-              {% set opacity = 0.3 %}
+              {% set opacity = 0 %}
               {% include 'shadow_chip_icon.jinja' %}
             mushroom-template-chip:nth-child(3)$: |
-              {% set opacity = 0.3 %}
+              {% set opacity = 0 %}
               {% include 'shadow_chip_icon.jinja' %}
             mushroom-template-chip:nth-child(4)$: |
-              {% set opacity = 0.3 %}
+              {% set opacity = 0 %}
               {% include 'shadow_chip_icon.jinja' %}
             mushroom-template-chip:nth-child(5)$: |
-              {% set opacity = 0.3 %}
+              {% set opacity = 0 %}
               {% include 'shadow_chip_icon.jinja' %}
             mushroom-template-chip:nth-child(6)$: |
-              {% set opacity = 0.3 %}
+              {% set opacity = 0 %}
               {% include 'shadow_chip_icon.jinja' %}
             .: |
 

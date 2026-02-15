@@ -353,6 +353,12 @@ cards:
             icon: ""
           - type: spacer
           - type: back
+            card_mod:
+              style:
+                .: |
+                  {% set hover = 'true' %}
+                  {% set stating = 'false' %}
+                  {% include 'chip_settings_style.jinja' %}
         layout_options:
           grid_columns: full
         card_mod:
@@ -362,19 +368,7 @@ cards:
                 --card-mod-icon: mdi:close;
               }
             .: |
-              ha-card {
-                margin: 12px 0px 0px;
-                --chip-background: none;
-                --chip-border-width: 0;
-                --chip-box-shadow: none;
-                --chip-border-radius: 12px;
-                --chip-height: 40px;
-                --chip-padding: 14px;
-                --chip-spacing: -35px;
-                --chip-icon-size: 0.7em;
-                --chip-font-size: 0.6em;
-              }
-              }
+              {% include 'pop_up_title.jinja' %}
       - square: false
         type: grid
         cards:
